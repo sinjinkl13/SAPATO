@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRASI | BRUTAL DESIGN</title>
+    <style>
+        /* Gaya Brutalism */
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #F5F5F5;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            border: 4px solid #000;
+            padding: 20px;
+            background-color: #FFF;
+            box-shadow: 8px 8px 0 #000;
+        }
+        
+        header {
+            border-bottom: 3px solid #000;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        
+        .tagline {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 3px solid #000;
+            background-color: #FFF;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            background-color: #FF0;
+        }
+        
+        button {
+            background-color: #000;
+            color: #FFF;
+            border: none;
+            padding: 12px 24px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            border: 3px solid #000;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background-color: #FFF;
+            color: #000;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .full-width {
+            grid-column: span 2;
+        }
+        
+        .disclaimer {
+            font-size: 0.8rem;
+            margin-top: 30px;
+            border-top: 3px solid #000;
+            padding-top: 10px;
+        }
+        
+        .error {
+            color: #F00;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>daftar sekarang</h1>
+            <p class="tagline">Bergabunglah dengan revolusi desain brutal</p>
+        </header>
+        
+        <form id="registrationForm">
+            <div class="grid">
+                <div class="form-group">
+                    <label for="firstName">NAMA DEPAN*</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <div class="error" id="firstNameError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">NAMA BELAKANG</label>
+                    <input type="text" id="lastName" name="lastName">
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="email">EMAIL*</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error" id="emailError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">PASSWORD*</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="error" id="passwordError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">KONFIRMASI PASSWORD*</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <div class="error" id="confirmPasswordError"></div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="interest">MINAT UTAMA ANDA*</label>
+                    <select id="interest" name="interest" required>
+                        <option value="">-- Pilih Minat --</option>
+                        <option value="design">Desain Grafis</option>
+                        <option value="web">Pengembangan Web</option>
+                        <option value="art">Seni Visual</option>
+                        <option value="other">Lainnya</option>
+                    </select>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label>
+                        <input type="checkbox" name="terms" required> 
+                        Saya menyetujui syarat dan ketentuan yang berlaku*
+                    </label>
+                    <div class="error" id="termsError"></div>
+                </div>
+            </div>
+            
+            <button type="submit">DAFTAR SEKARANG</button>
+        </form>
+        
+        <p class="disclaimer">
+            *Wajib diisi. Data Anda akan dilindungi sesuai dengan kebijakan privasi kami.
+            <br>Desain brutal tidak untuk semua orang. Hanya untuk yang berani.
+        </p>
+    </div>
+    
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+            
+            // Simple validation
+            let isValid = true;
+            const firstName = document.getElementById('firstName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const terms = document.querySelector('input[name="terms"]').checked;
+            
+            if (!firstName) {
+                document.getElementById('firstNameError').textContent = 'Nama depan wajib diisi';
+                isValid = false;
+            }
+            
+            if (!email.includes('@')) {
+                document.getElementById('emailError').textContent = 'Email tidak valid';
+                isValid = false;
+            }
+            
+            if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password minimal 6 karakter';
+                isValid = false;
+            }
+            
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Password tidak cocok';
+                isValid = false;
+            }
+            
+            if (!terms) {
+                document.getElementById('termsError').textContent = 'Anda harus menyetujui syarat dan ketentuan';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert('PENDAFTARAN BERHASIL!\nSelamat bergabung dengan revolusi desain brutal.');
+                // Form would be submitted here in a real application
+                // this.submit();
+            }
+        });
+    </script>
+</body>
+</html>
